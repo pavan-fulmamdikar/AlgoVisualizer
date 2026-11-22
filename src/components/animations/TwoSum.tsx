@@ -306,7 +306,7 @@ export default function TwoSum({ onBack }: { onBack?: () => void }) {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div style={{ color: 'var(--muted)', fontSize: '0.9rem', fontWeight: 600 }}>nums array</div>
-                <div style={{ background: 'var(--accent)', color: 'white', padding: '4px 12px', borderRadius: '12px', fontWeight: 'bold' }}>
+                <div style={{ background: 'var(--accent)', color: 'var(--accent-fg)', padding: '4px 12px', borderRadius: '12px', fontWeight: 'bold' }}>
                   Target: {target}
                 </div>
               </div>

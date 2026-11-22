@@ -65,7 +65,7 @@ export function GenericLinkedListCanvas({ nodes, pointers, svgWidth = 800, svgHe
                   stroke="var(--muted)" strokeWidth="2" 
                   markerEnd="url(#arrowhead)" 
                 />
-                <text x={node.x + 75} y={node.y + 5} fill="var(--muted)" fontSize="14" textAnchor="middle" fontFamily="monospace">null</text>
+                <text x={node.x + 84} y={node.y + 5} fill="var(--muted)" fontSize="14" textAnchor="middle" fontFamily="monospace">null</text>
               </g>
             );
           }

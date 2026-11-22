@@ -5,66 +5,106 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { Visualizer } from './components/Visualizer';
 import { SystemDesign } from './components/SystemDesign';
+import { AppShellContext } from './AppShellContext';
 import './index.css';
 
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const [activeCategory, setActiveCategory] = useState('dashboard');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const isProblemPage = location.pathname.startsWith('/problem/');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
+
   const toggleTheme = () => {
     setTheme(t => t === 'dark' ? 'light' : 'dark');
   };
 
-  return (
-    <div>
-      <header>
-        <h1><Sparkles size={24} color="var(--accent)" /> AlgoVisualizer</h1>
-        <div className="header-actions">
-          <div className="search-bar">
-            <Search size={16} color="var(--muted)" />
-            <input type="text" placeholder="Search" />
-          </div>
-          <button className="theme-toggle-btn" onClick={toggleTheme}>
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
-          {isLoggedIn ? (
-            <div className="profile-icon" onClick={() => setIsLoggedIn(false)} style={{ cursor: 'pointer' }} title="Log out">
-              <User size={18} />
-            </div>
-          ) : (
-            <button className="ov-hero-btn" style={{ padding: '8px 16px', fontSize: '0.9rem' }} onClick={() => setIsLoggedIn(true)}>
-              Sign In
-            </button>
-          )}
-        </div>
-      </header>
+  const toggleSidebar = () => {
+    setSidebarOpen(o => !o);
+  };
 
-      <div className="layout">
-        <Sidebar activeCategory={activeCategory} setActiveCategory={(c) => {
-          setActiveCategory(c);
-          if (location.pathname.startsWith('/problem/')) navigate('/');
-        }} />
-        
-        <Routes>
-          <Route path="/" element={
-            activeCategory === 'system-design' 
-              ? <SystemDesign />
-              : <Dashboard category={activeCategory} onVisualize={(id) => {
-                const [problemId, query] = id.split('?');
-                navigate(`/problem/${problemId}${query ? '?' + query : ''}`);
-              }} isLoggedIn={isLoggedIn} />
-          } />
-          <Route path="/problem/:id" element={<Visualizer />} />
-        </Routes>
+  const handleSelectCategory = (c: string) => {
+    setActiveCategory(c);
+    setSidebarOpen(false);
+    if (isProblemPage) navigate('/');
+  };
+
+  return (
+    <AppShellContext.Provider value={{ theme, toggleTheme, sidebarOpen, toggleSidebar, isProblemPage }}>
+      <div>
+        {!isProblemPage && (
+          <header>
+            <div className="header-left">
+              <h1
+                className="brand-link"
+                onClick={() => {
+                  setSidebarOpen(false);
+                  navigate('/');
+                }}
+              >
+                <Sparkles size={22} color="var(--accent)" /> AlgoVisualizer
+              </h1>
+            </div>
+            <div className="header-actions">
+              <div className="search-bar">
+                <Search size={16} color="var(--muted)" />
+                <input type="text" placeholder="Search" />
+              </div>
+              <button className="theme-toggle-btn" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
+                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+              {isLoggedIn ? (
+                <div className="profile-icon" onClick={() => setIsLoggedIn(false)} style={{ cursor: 'pointer' }} title="Log out">
+                  <User size={18} />
+                </div>
+              ) : (
+                <button className="header-signin-btn" onClick={() => setIsLoggedIn(true)}>
+                  Sign In
+                </button>
+              )}
+            </div>
+          </header>
+        )}
+
+        <div className={`layout ${isProblemPage ? 'problem-focus-layout' : ''}`}>
+          {!isProblemPage && (
+            <Sidebar activeCategory={activeCategory} setActiveCategory={handleSelectCategory} />
+          )}
+
+          {isProblemPage && sidebarOpen && (
+            <>
+              <div className="sidebar-drawer-backdrop" onClick={() => setSidebarOpen(false)} />
+              <div className="sidebar-drawer">
+                <Sidebar activeCategory={activeCategory} setActiveCategory={handleSelectCategory} />
+              </div>
+            </>
+          )}
+          
+          <Routes>
+            <Route path="/" element={
+              activeCategory === 'system-design' 
+                ? <SystemDesign />
+                : <Dashboard category={activeCategory} onVisualize={(id) => {
+                  const [problemId, query] = id.split('?');
+                  navigate(`/problem/${problemId}${query ? '?' + query : ''}`);
+                }} isLoggedIn={isLoggedIn} />
+            } />
+            <Route path="/problem/:id" element={<Visualizer />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </AppShellContext.Provider>
   );
 }
 

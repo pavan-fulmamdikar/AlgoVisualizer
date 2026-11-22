@@ -238,7 +238,7 @@ export function Visualizer() {
   ];
   if (problemId && fullScreenLayoutIds.includes(problemId)) {
     return (
-      <div style={{ flex: 1, height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
+      <div className="visualizer-route-wrap">
         {renderAnimation()}
       </div>
     );

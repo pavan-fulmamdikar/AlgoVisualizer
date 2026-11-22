@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { 
-  VPHeader, VisualizerLayout, VPBody, CodePanel, ExamplePicker, ProblemStatement, 
-  AlgorithmList, Complexity, WhyItWorks, ControlBar, StepCard, PracticeWorkspace
+  VPHeader, VisualizerLayout, VPBody, CodePanel, ProblemStatement, 
+  AlgorithmList, Complexity, WhyItWorks, ControlBar, StepCard, PracticeWorkspace,
+  CasesPortal
 } from './VisualizerLayout';
 import type { DebugTestCase, DebugHint } from './VisualizerLayout';
 
@@ -164,53 +165,52 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
         activeTab={tab} 
         onTabChange={setTab}
         />
-      <div style={{ marginBottom: '24px' }}>
-        <ProblemStatement 
-          statement={<p>{props.problemStatement}</p>} 
-          examples={examples.map((ex, i) => ({
-            label: `Example ${i + 1}`,
-            input: ex.inputBlock,
-            output: ex.outputBlock,
-            explanation: ex.explanation
-          }))} 
-          constraints={<div />} 
-        />
-        <div style={{ margin: '10px auto 0px', maxWidth: '1440px', padding: '0px 28px', width: '100%', boxSizing: 'border-box' }}>
-          <div className="ex-card card" style={{ margin: '0px' }}>
-            <div className="card-title" style={{ marginBottom: '8px' }}>Try Examples</div>
-            <div className="ex-row" style={{ flexWrap: 'wrap', gap: '8px' }}>
-              {examples.map((ex, i) => (
-                <button
-                  key={i}
-                  className={`ex-btn ${activeExIndex === i ? 'active' : ''}`}
-                  onClick={() => onExampleSelect(ex.value)}
-                >
-                  <span className="ex-input">{ex.shortLabel}</span>
-                  <span className="ex-arrow">→</span>
-                  <span className="ex-output">{ex.shortOutput}</span>
-                </button>
-              ))}
-              {edgeCases && edgeCases.length > 0 && (
-                <button 
-                  className="ex-btn edge-btn" 
-                  style={{ borderStyle: 'solid', background: 'var(--surface2)', color: 'var(--accent)', borderColor: 'var(--accent)' }} 
-                  onClick={() => {
-                    const randomCase = edgeCases[Math.floor(Math.random() * edgeCases.length)];
-                    onExampleSelect(randomCase);
-                  }}
-                >
-                  <span>✨ Edge Case</span>
-                </button>
-              )}
-              {customInput}
-            </div>
+      <ProblemStatement 
+        statement={<p>{props.problemStatement}</p>} 
+        examples={examples.map((ex, i) => ({
+          label: `Example ${i + 1}`,
+          input: ex.inputBlock,
+          output: ex.outputBlock,
+          explanation: ex.explanation
+        }))} 
+        constraints={null} 
+      />
+      <CasesPortal>
+        <div className="ex-toolbar">
+          <span className="ex-toolbar-label">Cases</span>
+          <div className="ex-row">
+            {examples.map((ex, i) => (
+              <button
+                type="button"
+                key={i}
+                className={`ex-btn ${activeExIndex === i ? 'active' : ''}`}
+                onClick={() => onExampleSelect(ex.value)}
+              >
+                <span className="ex-input">{ex.shortLabel}</span>
+                <span className="ex-arrow">→</span>
+                <span className="ex-output">{ex.shortOutput}</span>
+              </button>
+            ))}
+            {edgeCases && edgeCases.length > 0 && (
+              <button 
+                type="button"
+                className="ex-btn edge-btn"
+                onClick={() => {
+                  const randomCase = edgeCases[Math.floor(Math.random() * edgeCases.length)];
+                  onExampleSelect(randomCase);
+                }}
+              >
+                <span>✨ Edge Case</span>
+              </button>
+            )}
+            {customInput}
           </div>
         </div>
-      </div>
+      </CasesPortal>
 
       <VPBody 
         left={
-          <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <>
             <ControlBar 
               step={currentStep} 
               maxSteps={totalSteps} 
@@ -223,16 +223,17 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
             />
             
             {predictionPrompt && !answeredPrompts.has(predictionPrompt.id) && (
-              <div className="card" style={{ border: '2px solid var(--accent)', background: 'var(--surface2)', animation: 'pulse 2s infinite' }}>
-                <div style={{ color: 'var(--accent)', fontWeight: 'bold', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="card prediction-card">
+                <div style={{ color: 'var(--accent)', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   <span>✨ Predict Before Run</span>
                 </div>
-                <div style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text)' }}>
+                <div style={{ fontSize: '1rem', marginBottom: '14px', color: 'var(--text)', lineHeight: 1.5 }}>
                   {predictionPrompt.question}
                 </div>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {predictionPrompt.options.map((opt, i) => (
                     <button 
+                      type="button"
                       key={i} 
                       className="ex-btn" 
                       style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
@@ -251,7 +252,7 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
                   ))}
                 </div>
                 {showPredictionError && (
-                  <div style={{ marginTop: '16px', padding: '12px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', fontSize: '0.9rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                  <div style={{ marginTop: '12px', padding: '10px 12px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', fontSize: '0.85rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
                     <strong>Mistake:</strong> {showPredictionError}
                   </div>
                 )}
@@ -259,11 +260,11 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
             )}
 
             <div className="card">
-              <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <div className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
                 <span style={{ color: 'var(--cyan)' }}>■</span> Pointer Tracking
               </div>
-              <div className="animation-canvas" style={{ padding: 0, margin: 0, border: 'none', background: 'transparent', minHeight: '300px', display: 'flex', alignItems: 'center' }}>
-                <div style={{ width: '100%', height: '300px', display: 'flex', justifyContent: 'center' }}>
+              <div className="animation-canvas" style={{ padding: 0, margin: 0, border: 'none', background: 'transparent', minHeight: '280px', display: 'flex', alignItems: 'center' }}>
+                <div style={{ width: '100%', height: '280px', display: 'flex', justifyContent: 'center' }}>
                   {children}
                 </div>
               </div>
@@ -276,10 +277,10 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
               maxSteps={totalSteps} 
               isDone={currentStep === totalSteps - 1} 
             />
-          </div>
+          </>
         }
         right={
-          <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <>
             <CodePanel 
               title={title}
               activeLinesJava={activeLinesJava}
@@ -290,7 +291,7 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
             {algorithmSteps && <AlgorithmList activeStep={-1} steps={algorithmSteps} />}
             {timeComplexity && spaceComplexity && <Complexity time={timeComplexity} space={spaceComplexity} />}
             {whyItWorks && <WhyItWorks paragraphs={whyItWorks} />}
-          </div>
+          </>
         }
       />
     </VisualizerLayout>
