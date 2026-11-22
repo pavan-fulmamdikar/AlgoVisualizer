@@ -5,6 +5,7 @@
   --surface: #1d1b20;
   --surface2: #2b2930;
   --border: #49454f;
+  --border-strong: #625b71;
   --accent: #a8c7fa;
   --accent-fg: #062e6f;
   --accent2: #80ebd0;
@@ -51,6 +52,7 @@ html[data-theme='light'] {
   --surface: #ffffff;
   --surface2: #eef3f9;
   --border: #dce5ef;
+  --border-strong: #cbd5e1;
   --accent: #0b57d0;
   --accent-fg: #ffffff;
   --accent2: #0d9488;
