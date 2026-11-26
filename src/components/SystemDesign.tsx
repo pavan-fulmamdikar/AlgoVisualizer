@@ -1,5 +1,6 @@
 import React from 'react';
-import { Wrench, Cuboid, Globe2, Unlock, Factory, PlusSquare, UserCheck, Rocket, Handshake, Calendar, Cpu, Eye, Brain, ArrowUpDown, Paperclip, CheckCircle2, FileStack, Box, Anchor, CreditCard, Lock, KeyRound, Gift, RefreshCcw, Dices, Car, Shield, FileText, Plug, ArrowDownToLine, BoxSelect, Key, Network, Dna, FlaskConical, Activity, Combine, Wind, DoorOpen, ListOrdered, LayoutTemplate, PlaySquare, Monitor, Archive, TrendingUp, Mail, Hammer, Waves, DatabaseZap, Receipt, Banknote, Pizza, MessageSquare, Radio, Recycle, Target, Building2, TrafficCone, Settings, Map, Link, Feather, FireExtinguisher, Scale, Database } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Wrench, Cuboid, Globe2, Unlock, Factory, PlusSquare, UserCheck, Rocket, Handshake, Calendar, Cpu, Eye, Brain, ArrowUpDown, Paperclip, CheckCircle2, FileStack, Box, Anchor, CreditCard, Lock, KeyRound, Gift, RefreshCcw, Dices, Car, Shield, FileText, Plug, ArrowDownToLine, BoxSelect, Key, Network, Dna, FlaskConical, Activity, Combine, Wind, DoorOpen, ListOrdered, LayoutTemplate, PlaySquare, Monitor, Archive, TrendingUp, Mail, Hammer, Waves, DatabaseZap, Receipt, Banknote, Pizza, MessageSquare, Radio, Recycle, Target, Building2, TrafficCone, Settings, Map, Link, Feather, FireExtinguisher, Scale, Database, Play } from 'lucide-react';
 import './SystemDesign.css';
 
 const sdData = [
@@ -7,42 +8,42 @@ const sdData = [
     icon: <Building2 size={20} />,
     title: 'LLD Interview Prep',
     count: '11',
-    subtitle: 'Recommended learning path — work top to bottom (11 topics)',
+    subtitle: 'Recommended learning path — click any topic for interactive architecture & animated solution',
     topics: [
-      { icon: <Archive size={16} />, title: '1 · LRU Cache', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <ArrowUpDown size={16} />, title: '11 · Elevator', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Car size={16} />, title: '2 · Parking Lot', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <CreditCard size={16} />, title: '5 · ATM Machine', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Banknote size={16} />, title: '6 · Splitwise', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <PlaySquare size={16} />, title: '7 · BookMyShow', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Pizza size={16} />, title: '8 · Food Delivery', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <TrafficCone size={16} />, title: '9 · Rate Limiter', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Calendar size={16} />, title: '10 · Meeting Scheduler', priority: 'Important', priorityClass: 'sd-prio-important' },
-      { icon: <Dices size={16} />, title: '3 · Snake & Ladder', priority: 'Important', priorityClass: 'sd-prio-important' },
-      { icon: <FileText size={16} />, title: '4 · Design a Logger', priority: 'Important', priorityClass: 'sd-prio-important' },
+      { icon: <Archive size={16} />, title: '1 · LRU Cache', slug: 'lru-cache', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <ArrowUpDown size={16} />, title: '11 · Elevator', slug: 'elevator', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Car size={16} />, title: '2 · Parking Lot', slug: 'parking-lot', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <CreditCard size={16} />, title: '5 · ATM Machine', slug: 'atm-machine', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Banknote size={16} />, title: '6 · Splitwise', slug: 'splitwise', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <PlaySquare size={16} />, title: '7 · BookMyShow', slug: 'bookmyshow', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Pizza size={16} />, title: '8 · Food Delivery', slug: 'food-delivery', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <TrafficCone size={16} />, title: '9 · Rate Limiter', slug: 'rate-limiter', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Calendar size={16} />, title: '10 · Meeting Scheduler', slug: 'meeting-scheduler', priority: 'Important', priorityClass: 'sd-prio-important' },
+      { icon: <Dices size={16} />, title: '3 · Snake & Ladder', slug: 'snake-and-ladder', priority: 'Important', priorityClass: 'sd-prio-important' },
+      { icon: <FileText size={16} />, title: '4 · Design a Logger', slug: 'design-logger', priority: 'Important', priorityClass: 'sd-prio-important' },
     ]
   },
   {
     icon: <Cpu size={20} />,
     title: 'Concurrency & Threading',
     count: '15',
-    subtitle: 'Recommended learning path — work top to bottom (15 topics)',
+    subtitle: 'Recommended learning path — click any topic for interactive thread & memory animations',
     topics: [
-      { icon: <Brain size={16} />, title: '1 · Concurrency Basics', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Map size={16} />, title: '10 · ConcurrentHashMap & Collections', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Wrench size={16} />, title: '2 · Synchronization (Types & Use Cases)', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Radio size={16} />, title: '3 · volatile Keyword', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <FlaskConical size={16} />, title: '4 · volatile / atomic / transient', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Key size={16} />, title: '5 · synchronized vs ReentrantLock', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Paperclip size={16} />, title: '7 · Thread Pools & ExecutorService', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <Link size={16} />, title: '9 · CompletableFuture & Async Composition', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
-      { icon: <FireExtinguisher size={16} />, title: '6 · Deadlock / Livelock / Starvation', priority: 'Important', priorityClass: 'sd-prio-important' },
-      { icon: <Box size={16} />, title: '8 · BlockingQueue', priority: 'Important', priorityClass: 'sd-prio-important' },
-      { icon: <Settings size={16} />, title: '11 · HashMap vs ConcurrentHashMap', priority: 'Advanced', priorityClass: 'sd-prio-advanced' },
-      { icon: <Feather size={16} />, title: '14 · Virtual Threads (Java 21)', priority: 'Advanced', priorityClass: 'sd-prio-advanced' },
-      { icon: <Recycle size={16} />, title: '15 · JVM / GC Overview', priority: 'Advanced', priorityClass: 'sd-prio-advanced' },
-      { icon: <Wind size={16} />, title: '12 · WeakHashMap', priority: 'Specialized', priorityClass: 'sd-prio-specialized' },
-      { icon: <Paperclip size={16} />, title: '13 · Weak / Soft / Phantom Reference', priority: 'Specialized', priorityClass: 'sd-prio-specialized' },
+      { icon: <Brain size={16} />, title: '1 · Concurrency Basics', slug: 'concurrency-basics', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Map size={16} />, title: '10 · ConcurrentHashMap & Collections', slug: 'concurrenthashmap-collections', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Wrench size={16} />, title: '2 · Synchronization (Types & Use Cases)', slug: 'synchronization-types', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Radio size={16} />, title: '3 · volatile Keyword', slug: 'volatile-keyword', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <FlaskConical size={16} />, title: '4 · volatile / atomic / transient', slug: 'volatile-atomic-transient', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Key size={16} />, title: '5 · synchronized vs ReentrantLock', slug: 'synchronized-vs-reentrantlock', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Paperclip size={16} />, title: '7 · Thread Pools & ExecutorService', slug: 'thread-pools-executorservice', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <Link size={16} />, title: '9 · CompletableFuture & Async Composition', slug: 'completablefuture-async', priority: 'Must Know', priorityClass: 'sd-prio-must-know' },
+      { icon: <FireExtinguisher size={16} />, title: '6 · Deadlock / Livelock / Starvation', slug: 'deadlock-livelock-starvation', priority: 'Important', priorityClass: 'sd-prio-important' },
+      { icon: <Box size={16} />, title: '8 · BlockingQueue', slug: 'blocking-queue', priority: 'Important', priorityClass: 'sd-prio-important' },
+      { icon: <Settings size={16} />, title: '11 · HashMap vs ConcurrentHashMap', slug: 'hashmap-vs-concurrenthashmap', priority: 'Advanced', priorityClass: 'sd-prio-advanced' },
+      { icon: <Feather size={16} />, title: '14 · Virtual Threads (Java 21)', slug: 'virtual-threads', priority: 'Advanced', priorityClass: 'sd-prio-advanced' },
+      { icon: <Recycle size={16} />, title: '15 · JVM / GC Overview', slug: 'jvm-gc-overview', priority: 'Advanced', priorityClass: 'sd-prio-advanced' },
+      { icon: <Wind size={16} />, title: '12 · WeakHashMap', slug: 'weakhashmap', priority: 'Specialized', priorityClass: 'sd-prio-specialized' },
+      { icon: <Paperclip size={16} />, title: '13 · Weak / Soft / Phantom Reference', slug: 'weak-soft-phantom-reference', priority: 'Specialized', priorityClass: 'sd-prio-specialized' },
     ]
   },
   {
@@ -179,6 +180,8 @@ const sdData = [
 ];
 
 export function SystemDesign() {
+  const navigate = useNavigate();
+
   return (
     <main className="sd-page">
       
@@ -197,10 +200,25 @@ export function SystemDesign() {
             </div>
             <div className="sd-welcome-card-sub">{card.subtitle}</div>
             <div className="sd-welcome-card-list">
-              {card.topics.map((topic, tidx) => (
-                <button key={tidx} type="button" className="sd-welcome-pill" title="Open">
+              {card.topics.map((topic: any, tidx) => (
+                <button
+                  key={tidx}
+                  type="button"
+                  className={`sd-welcome-pill ${topic.slug ? 'has-solution' : ''}`}
+                  title={topic.slug ? `Open ${topic.title} Interactive Solution` : 'Coming soon'}
+                  onClick={() => {
+                    if (topic.slug) {
+                      navigate(`/system-design/${topic.slug}`);
+                    }
+                  }}
+                >
                   <span className="pill-ico">{topic.icon}</span>
                   <span className="pill-t">{topic.title}</span>
+                  {topic.slug && (
+                    <span className="sd-interactive-badge">
+                      <Play size={10} fill="currentColor" /> Interactive
+                    </span>
+                  )}
                   <span className={`sd-priority-chip ${topic.priorityClass}`}>{topic.priority}</span>
                 </button>
               ))}

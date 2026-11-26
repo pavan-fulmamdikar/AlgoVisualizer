@@ -306,6 +306,7 @@ export default function ReorderList({ onBack }: { onBack?: () => void }) {
   return (
     <VisualizerLayout
       title="Reorder List"
+      lcNum="143"
       problemStatement="You are given the head of a singly linked list. Reorder the list to be: L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ..."
       difficulty="Medium"
       category="Linked Lists"

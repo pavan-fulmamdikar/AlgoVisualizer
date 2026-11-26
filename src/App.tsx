@@ -5,6 +5,7 @@ import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { Visualizer } from './components/Visualizer';
 import { SystemDesign } from './components/SystemDesign';
+import { LLDStudio } from './components/lld/LLDStudio';
 import { AppShellContext } from './AppShellContext';
 import './index.css';
 
@@ -16,7 +17,9 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isProblemPage = location.pathname.startsWith('/problem/');
+  const isProblemPage =
+    location.pathname.startsWith('/problem/') ||
+    location.pathname.startsWith('/system-design/');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -101,6 +104,17 @@ function App() {
                 }} isLoggedIn={isLoggedIn} />
             } />
             <Route path="/problem/:id" element={<Visualizer />} />
+            <Route
+              path="/system-design/:slug"
+              element={
+                <LLDStudio
+                  onBackToSD={() => {
+                    setActiveCategory('system-design');
+                    navigate('/');
+                  }}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>

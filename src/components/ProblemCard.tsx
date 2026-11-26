@@ -34,6 +34,11 @@ export function ProblemCard({ id, num, title, difficulty, description, visualTyp
             ? <span style={{ fontSize: '0.7rem', padding: '3px 10px', borderRadius: '9999px', fontWeight: 700, background: 'rgba(251,191,36,0.25)', color: '#b45309', border: '1px solid rgba(251,191,36,0.5)', letterSpacing: '0.3px' }}>🐛 Bug Hunt</span>
             : <span className={`card-diff-badge ${difficulty}`}>{difficulty}</span>
           }
+          {num > 0 && (
+            <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: '6px', fontWeight: 700, background: 'rgba(245, 158, 11, 0.12)', color: '#d97706', border: '1px solid rgba(245, 158, 11, 0.3)', fontFamily: 'var(--font-mono)' }}>
+              LC #{num}
+            </span>
+          )}
           {solved && <CheckCircle2 size={16} color="var(--green)" />}
         </div>
         <MoreVertical size={16} className="card-kebab" />

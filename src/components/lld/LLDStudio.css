@@ -1,0 +1,630 @@
+/* ==========================================================================
+   LLD Studio — Clean, Non-Overlapping Architecture Whiteboard & Data Dock
+   ========================================================================== */
+
+:root {
+  --arch-board-bg: #1b1d24;
+  --arch-node-bg: #232631;
+  --arch-ink: #f1f5f9;
+  --arch-sub: #94a3b8;
+  --arch-muted-stroke: #475569;
+  --arch-muted-line: #475569;
+  --arch-bar: #334155;
+}
+
+html[data-theme='light'] {
+  --arch-board-bg: #ffffff;
+  --arch-node-bg: #ffffff;
+  --arch-ink: #1e293b;
+  --arch-sub: #64748b;
+  --arch-muted-stroke: #cbd5e1;
+  --arch-muted-line: #94a3b8;
+  --arch-bar: #cbd5e1;
+}
+
+.lld-topic-select {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 10px;
+  height: 30px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.lld-topic-select:hover,
+.lld-topic-select:focus {
+  border-color: var(--accent);
+}
+
+.lld-header-scenarios {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lld-stage-scroll {
+  gap: 10px;
+  padding: 12px 14px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Unified Modern Whiteboard Card
+   -------------------------------------------------------------------------- */
+.modern-arch-board {
+  background: var(--arch-board-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 16px 14px;
+  box-shadow: var(--md-shadow-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Top Bar Inside Whiteboard: Step Pill + Step Title + Active Packet Badge */
+.modern-board-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modern-board-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.modern-arch-step-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 11px;
+  border-radius: 9999px;
+  background: #ea580c;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.modern-board-step-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modern-board-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.modern-scenario-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface2);
+  padding: 2px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.modern-scn-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.modern-scn-btn:hover {
+  color: var(--text);
+}
+
+.modern-scn-btn.active {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+.modern-scn-btn.is-broken.active {
+  background: rgba(239, 68, 68, 0.16);
+  color: var(--hard);
+  outline: 1px solid var(--hard);
+}
+
+.modern-scn-btn.is-fixed.active {
+  background: rgba(22, 163, 74, 0.16);
+  color: var(--easy);
+  outline: 1px solid var(--easy);
+}
+
+.modern-call-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 11px;
+  border-radius: 9999px;
+  background: rgba(234, 88, 12, 0.11);
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  color: #ea580c;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.modern-call-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ea580c;
+  box-shadow: 0 0 6px #ea580c;
+}
+
+.modern-call-badge code {
+  font-family: 'Fira Code', monospace;
+  font-weight: 700;
+  color: #ea580c;
+}
+
+/* Spacious SVG Stage */
+.modern-svg-container {
+  flex: 1;
+  min-height: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modern-arch-svg {
+  width: 100%;
+  max-height: 200px;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+@keyframes aliceClickPulse {
+  0%, 100% { transform: translate(-44px, 34px) scale(1); }
+  50% { transform: translate(-42px, 32px) scale(1.04); }
+}
+
+.alice-cursor-active {
+  animation: aliceClickPulse 1.6s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Integrated Bottom Live Data Dock + Compact State Chips
+   -------------------------------------------------------------------------- */
+.modern-arch-data-dock {
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.lld-domain-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.lld-domain-hdr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lld-domain-title {
+  font-size: 0.69rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.55px;
+  color: var(--muted);
+}
+
+.lld-inline-state-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.lld-mini-state {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.72rem;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.lld-mini-state.is-changed {
+  background: var(--viz-blue-bg);
+  border-color: var(--viz-blue-bd);
+  color: var(--viz-blue-fg);
+}
+
+.lld-mini-state-lbl {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.lld-mini-state.is-changed .lld-mini-state-lbl {
+  color: var(--viz-blue-fg);
+  opacity: 0.85;
+}
+
+.lld-mini-state strong {
+  font-family: 'Fira Code', monospace;
+  font-weight: 700;
+}
+
+.lld-domain-cells {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+.lld-chain-arrow {
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+}
+
+.lld-cell {
+  position: relative;
+  min-width: 78px;
+  padding: 7px 11px;
+  border-radius: 9px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--md-shadow-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.lld-cell.status-active {
+  background: var(--viz-blue-bg);
+  border-color: var(--viz-blue-bd);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
+}
+
+.lld-cell.status-success {
+  background: var(--viz-green-bg);
+  border-color: var(--viz-green-bd);
+}
+
+.lld-cell.status-warning {
+  background: var(--viz-yellow-bg);
+  border-color: var(--viz-yellow-bd);
+}
+
+.lld-cell.status-danger {
+  background: var(--viz-red-bg);
+  border-color: var(--viz-red-bd);
+}
+
+.lld-cell.status-locked {
+  background: var(--viz-purple-bg);
+  border-color: var(--viz-purple-bd);
+}
+
+.lld-cell.status-muted {
+  background: var(--surface2);
+  border-color: var(--border);
+  opacity: 0.62;
+}
+
+.lld-cell-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  font-family: 'Fira Code', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.status-active .lld-cell-badge {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+.status-success .lld-cell-badge {
+  background: var(--easy);
+  color: #ffffff;
+  border-color: var(--easy);
+}
+
+.status-danger .lld-cell-badge {
+  background: var(--hard);
+  color: #ffffff;
+  border-color: var(--hard);
+}
+
+.status-warning .lld-cell-badge {
+  background: var(--medium);
+  color: #111;
+  border-color: var(--medium);
+}
+
+.status-locked .lld-cell-badge {
+  background: var(--viz-purple-bd);
+  color: #ffffff;
+  border-color: var(--viz-purple-bd);
+}
+
+.lld-cell-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--text);
+}
+
+.lld-cell-sub {
+  font-size: 0.69rem;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+/* --------------------------------------------------------------------------
+   Right Pane: Explanation Tab (Beside Code) & UML Blueprint Tab
+   -------------------------------------------------------------------------- */
+.lld-live-exp-card {
+  border-left: 3px solid #ea580c !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lld-live-exp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lld-live-exp-scn {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.lld-live-exp-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.lld-live-call-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(234, 88, 12, 0.1);
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #ea580c;
+}
+
+.lld-live-call-box code {
+  font-family: 'Fira Code', monospace;
+  color: var(--text);
+}
+
+.lld-clickable-step {
+  cursor: pointer;
+}
+
+.lld-clickable-step:hover {
+  border-color: var(--accent);
+}
+
+.lld-pattern-footer {
+  height: auto;
+  min-height: 36px;
+  padding: 6px 14px;
+  flex-wrap: wrap;
+}
+
+.lld-pattern-footer .cplx-chip-val {
+  font-size: 0.75rem;
+  white-space: normal;
+}
+
+.lld-uml-list,
+.lld-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lld-section-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.lld-uml-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lld-uml-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.lld-stereotype {
+  display: inline-block;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 5px;
+  margin-bottom: 3px;
+}
+
+.lld-stereotype.st-interface { background: var(--viz-purple-bg); color: var(--viz-purple-fg); }
+.lld-stereotype.st-class { background: var(--viz-blue-bg); color: var(--viz-blue-fg); }
+.lld-stereotype.st-singleton { background: var(--viz-orange-bg); color: var(--viz-orange-fg); }
+.lld-stereotype.st-strategy { background: var(--viz-green-bg); color: var(--viz-green-fg); }
+.lld-stereotype.st-enum,
+.lld-stereotype.st-state { background: var(--viz-sky-bg); color: var(--viz-sky-fg); }
+
+.lld-uml-name {
+  margin: 0;
+  font-size: 0.94rem;
+  font-weight: 700;
+  font-family: 'Fira Code', monospace;
+  color: var(--text);
+}
+
+.lld-uml-role {
+  margin: 0;
+  font-size: 0.81rem;
+  line-height: 1.45;
+  color: var(--prose);
+}
+
+.lld-uml-block {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 7px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.lld-uml-block-lbl {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.lld-uml-line {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.76rem;
+  color: var(--text);
+}
+
+.lld-uml-relations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.lld-rel-chip {
+  font-size: 0.73rem;
+  background: var(--viz-blue-bg);
+  color: var(--text);
+  border: 1px solid var(--viz-blue-bd);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.lld-rel-chip code {
+  font-family: 'Fira Code', monospace;
+  font-weight: 700;
+  color: var(--viz-blue-fg);
+}
+
+/* Beginner Guide Cards */
+.lld-analogy-card {
+  border-left: 3px solid var(--accent) !important;
+}
+
+.lld-req-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  color: var(--prose);
+}
+
+.lld-pattern-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lld-pattern-item {
+  background: var(--surface2);
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+}
+
+.lld-pattern-name {
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.lld-pattern-why {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--prose);
+}

@@ -17,6 +17,7 @@ export interface PredictionPrompt {
 
 interface LLVisualizerLayoutProps {
   title: string;
+  lcNum?: string;
   problemStatement: string;
   difficulty: string;
   category: string;
@@ -65,7 +66,7 @@ interface LLVisualizerLayoutProps {
 
 export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
   const {
-    title, difficulty, category, javaCode, pythonCode, activeLinesJava, activeLinesPy,
+    title, lcNum = '', difficulty, category, javaCode, pythonCode, activeLinesJava, activeLinesPy,
     explanation, isPlaying, speed, onPlay, onPause, onReset, onStepForward,
     onStepBackward, onSpeedChange, currentStep, totalSteps, customInput,
     examples, edgeCases, onExampleSelect, currentExample, children,
@@ -106,7 +107,7 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
     return (
       <VisualizerLayout>
         <VPHeader hasDebug={true} title={title} 
-          lcNum="" 
+          lcNum={lcNum} 
           difficulty={difficulty} 
           tag={category} 
           onBack={onBack || (() => {})} 
@@ -128,7 +129,7 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
     return (
       <VisualizerLayout>
         <VPHeader hasDebug={true} title={title}
-          lcNum=""
+          lcNum={lcNum}
           difficulty={difficulty}
           tag={category}
           onBack={onBack || (() => {})}
@@ -158,7 +159,7 @@ export function LLVisualizerLayout(props: LLVisualizerLayoutProps) {
   return (
     <VisualizerLayout>
       <VPHeader hasDebug={true} title={title}
-        lcNum=""
+        lcNum={lcNum}
         difficulty={difficulty}
         tag={category}
         onBack={onBack || (() => {})} 

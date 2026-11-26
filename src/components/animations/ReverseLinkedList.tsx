@@ -382,6 +382,7 @@ export default function ReverseLinkedList({ onBack }: { onBack?: () => void }) {
   return (
     <VisualizerLayout
       title="Reverse Linked List"
+      lcNum="206"
       problemStatement="Given the head of a singly linked list, reverse the list, and return the reversed list."
       difficulty="Easy"
       category="Linked Lists"

@@ -243,6 +243,7 @@ export default function RemoveNthNode({ onBack }: { onBack?: () => void }) {
   return (
     <VisualizerLayout
       title="Remove Nth Node From End"
+      lcNum="19"
       problemStatement="Given the head of a linked list, remove the nth node from the end of the list and return its head."
       difficulty="Medium"
       category="Linked Lists"

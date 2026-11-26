@@ -71,6 +71,7 @@ export const allProblems = [
   { id: '48', num: 48, title: 'Rotate Image', difficulty: 'medium' as const, category: 'matrix', subtopic: 'General' },
   { id: '74', num: 74, title: 'Search a 2D Matrix', difficulty: 'medium' as const, category: 'matrix', subtopic: 'General' },
   { id: '36', num: 36, title: 'Valid Sudoku', difficulty: 'medium' as const, category: 'matrix', subtopic: 'General' },
+  { id: '289', num: 289, title: 'Game of Life', difficulty: 'medium' as const, category: 'matrix', subtopic: 'General' },
   
   // QUEUE
   { id: '933', num: 933, title: 'Number of Recent Calls', difficulty: 'easy' as const, category: 'queue', subtopic: 'Basics' },

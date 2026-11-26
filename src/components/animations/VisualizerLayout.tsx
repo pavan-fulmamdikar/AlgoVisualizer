@@ -129,6 +129,77 @@ export function CasesPortal({ children }: { children: React.ReactNode }) {
 // Unified Single-Row Top Header (48px)
 // -----------------------------------------------------------------------------
 
+const LC_PROBLEM_URLS: Record<string, string> = {
+  '1': 'https://leetcode.com/problems/two-sum/',
+  '3': 'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
+  '4': 'https://leetcode.com/problems/median-of-two-sorted-arrays/',
+  '5': 'https://leetcode.com/problems/longest-palindromic-substring/',
+  '11': 'https://leetcode.com/problems/container-with-most-water/',
+  '13': 'https://leetcode.com/problems/roman-to-integer/',
+  '14': 'https://leetcode.com/problems/longest-common-prefix/',
+  '15': 'https://leetcode.com/problems/3sum/',
+  '19': 'https://leetcode.com/problems/remove-nth-node-from-end-of-list/',
+  '21': 'https://leetcode.com/problems/merge-two-sorted-lists/',
+  '26': 'https://leetcode.com/problems/remove-duplicates-from-sorted-array/',
+  '33': 'https://leetcode.com/problems/search-in-rotated-sorted-array/',
+  '34': 'https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/',
+  '35': 'https://leetcode.com/problems/search-insert-position/',
+  '36': 'https://leetcode.com/problems/valid-sudoku/',
+  '41': 'https://leetcode.com/problems/first-missing-positive/',
+  '42': 'https://leetcode.com/problems/trapping-rain-water/',
+  '48': 'https://leetcode.com/problems/rotate-image/',
+  '49': 'https://leetcode.com/problems/group-anagrams/',
+  '53': 'https://leetcode.com/problems/maximum-subarray/',
+  '54': 'https://leetcode.com/problems/spiral-matrix/',
+  '59': 'https://leetcode.com/problems/spiral-matrix-ii/',
+  '73': 'https://leetcode.com/problems/set-matrix-zeroes/',
+  '74': 'https://leetcode.com/problems/search-a-2d-matrix/',
+  '76': 'https://leetcode.com/problems/minimum-window-substring/',
+  '79': 'https://leetcode.com/problems/word-search/',
+  '81': 'https://leetcode.com/problems/search-in-rotated-sorted-array-ii/',
+  '88': 'https://leetcode.com/problems/merge-sorted-array/',
+  '121': 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
+  '125': 'https://leetcode.com/problems/valid-palindrome/',
+  '141': 'https://leetcode.com/problems/linked-list-cycle/',
+  '143': 'https://leetcode.com/problems/reorder-list/',
+  '153': 'https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/',
+  '162': 'https://leetcode.com/problems/find-peak-element/',
+  '167': 'https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/',
+  '200': 'https://leetcode.com/problems/number-of-islands/',
+  '205': 'https://leetcode.com/problems/isomorphic-strings/',
+  '206': 'https://leetcode.com/problems/reverse-linked-list/',
+  '217': 'https://leetcode.com/problems/contains-duplicate/',
+  '225': 'https://leetcode.com/problems/implement-stack-using-queues/',
+  '240': 'https://leetcode.com/problems/search-a-2d-matrix-ii/',
+  '242': 'https://leetcode.com/problems/valid-anagram/',
+  '268': 'https://leetcode.com/problems/missing-number/',
+  '271': 'https://leetcode.com/problems/encode-and-decode-strings/',
+  '289': 'https://leetcode.com/problems/game-of-life/',
+  '344': 'https://leetcode.com/problems/reverse-string/',
+  '410': 'https://leetcode.com/problems/split-array-largest-sum/',
+  '424': 'https://leetcode.com/problems/longest-repeating-character-replacement/',
+  '438': 'https://leetcode.com/problems/find-all-anagrams-in-a-string/',
+  '567': 'https://leetcode.com/problems/permutation-in-string/',
+  '622': 'https://leetcode.com/problems/design-circular-queue/',
+  '647': 'https://leetcode.com/problems/palindromic-substrings/',
+  '680': 'https://leetcode.com/problems/valid-palindrome-ii/',
+  '704': 'https://leetcode.com/problems/binary-search/',
+  '832': 'https://leetcode.com/problems/flipping-an-image/',
+  '875': 'https://leetcode.com/problems/koko-eating-bananas/',
+  '933': 'https://leetcode.com/problems/number-of-recent-calls/',
+  '977': 'https://leetcode.com/problems/squares-of-a-sorted-array/',
+  '1011': 'https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/',
+  '1189': 'https://leetcode.com/problems/maximum-number-of-balloons/',
+  '1470': 'https://leetcode.com/problems/shuffle-the-array/',
+  '1480': 'https://leetcode.com/problems/running-sum-of-1d-array/',
+  '1672': 'https://leetcode.com/problems/richest-customer-wealth/',
+  '1700': 'https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/',
+  '1929': 'https://leetcode.com/problems/concatenation-of-array/',
+  '2239': 'https://leetcode.com/problems/find-closest-number-to-zero/',
+  'GFG': 'https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1',
+  'IB': 'https://www.interviewbit.com/problems/painters-partition-problem/'
+};
+
 export function VPHeader({
   title,
   lcNum,
@@ -149,6 +220,7 @@ export function VPHeader({
   onTabChange?: (tab: any) => void;
 }) {
   const shell = useAppShell();
+  const lcUrl = lcNum ? LC_PROBLEM_URLS[lcNum] : undefined;
 
   return (
     <div className="vp-header">
@@ -176,7 +248,22 @@ export function VPHeader({
         <span className="vp-header-divider" aria-hidden="true" />
         <h2 className="vp-title">{title}</h2>
         <div className="vp-badges">
-          {lcNum && <span className="lc-badge">#{lcNum}</span>}
+          {lcNum && (
+            lcUrl ? (
+              <a
+                href={lcUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lc-badge"
+                title={`Open Problem #${lcNum} on LeetCode`}
+                style={{ textDecoration: 'none' }}
+              >
+                {lcNum === 'GFG' || lcNum === 'IB' ? lcNum : `LC #${lcNum}`} ↗
+              </a>
+            ) : (
+              <span className="lc-badge">#{lcNum}</span>
+            )
+          )}
           <span className={`diff-badge ${difficulty.toLowerCase()}`}>{difficulty}</span>
           {tag && <span className="tag-badge">{tag}</span>}
         </div>

@@ -183,3 +183,17 @@ html[data-theme='light'] .sd-welcome-pill:hover {
   background: rgba(156, 163, 175, 0.1);
   color: #9ca3af;
 }
+
+.sd-interactive-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: var(--viz-blue-bg);
+  color: var(--viz-blue-fg);
+  border: 1px solid var(--viz-blue-bd);
+}
+

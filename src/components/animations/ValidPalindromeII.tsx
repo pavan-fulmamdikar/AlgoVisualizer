@@ -228,7 +228,7 @@ export default function ValidPalindromeII({ onBack }: { onBack?: () => void }) {
   
   return (
     <VisualizerLayout>
-      <VPHeader title="Valid Palindrome II" lcNum="680" difficulty="Easy" tag="Strings" onBack={onBack} activeTab={activeTab} onTabChange={setActiveTab} />
+      <VPHeader title="Valid Palindrome II" lcNum="680" difficulty="Medium" tag="Strings" onBack={onBack} activeTab={activeTab} onTabChange={setActiveTab} />
       {activeTab === 'visualizer' ? (
         <>
           <div style={{ marginBottom: '24px' }}>

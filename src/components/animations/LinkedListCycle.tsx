@@ -211,6 +211,7 @@ export default function LinkedListCycle({ onBack }: { onBack?: () => void }) {
   return (
     <VisualizerLayout
       title="Linked List Cycle"
+      lcNum="141"
       problemStatement="Given head, the head of a linked list, determine if the linked list has a cycle in it."
       difficulty="Easy"
       category="Linked Lists"
